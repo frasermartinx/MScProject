@@ -1,0 +1,11 @@
+model = FNO(n_modes=(12, 12), hidden_channels=64,in_channels=3,non_linearity=F.relu)
+
+optimizer = torch.optim.Adam(model.parameters(), 
+                                lr=0.001,weight_decay=1e-5)
+
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer,step_size=50,gamma = 0.5)
+
+100 epochs
+
+
+10000 data points
