@@ -33,9 +33,9 @@ class FNO2D(nn.Module):
 
     
         def forward(self,x):
+            pass
             
 
 x = torch.rand(32,1,11,11)
 
-pos = PositionalEmbedding2D([[0,5],[0,1]])
-pos(x)
+
