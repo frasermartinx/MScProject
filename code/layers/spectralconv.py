@@ -9,15 +9,15 @@ class SpectralConv2D(nn.Module):
 
     Parameters 
     ----------
-    in_ch:
+    in_ch: Int
         The input channels for the layer
-    out_ch:
+    out_ch: Int
         The output channels for the layer
     modes: List, int
         Either a list containing two mode numbers, or one integer to be used for both
     '''
     def __init__(self,in_ch,out_ch,modes):
-        super(SpectralConv2D,self).__init__()
+        super().__init__()
         self.in_ch = in_ch
         self.out_ch = out_ch
 
