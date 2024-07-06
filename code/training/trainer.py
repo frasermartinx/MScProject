@@ -57,7 +57,7 @@ class Trainer:
                         )
             if self.callbacks is not None:
                 for callback in self.callbacks:
-                    callback(self.model, epoch)
+                    callback(self.model)
             if epoch % self.log_test_interval == 0:
                 self.test(test_loaders, eval_losses)
             if scheduler is not None:
