@@ -1,10 +1,11 @@
 import torch 
 import torch.nn as nn
 import torch.nn.functional as F
-from mlp2d import MLP2D
-from fnoblock import FNOBlock2D
+from layers.mlp2d import MLP2D
+from layers.fnoblock import FNOBlock2D
+from losses.nll import gaussian_nll_loss
 
-class FNO2D(nn.Module):
+class FNO2D_Bayesian(nn.Module):
     def __init__(
             self,
             n_modes,

@@ -20,4 +20,5 @@ class PositionalEmbedding2D():
         y_range = torch.linspace(self.grid_boundaries_y[0], self.grid_boundaries_y[1], input.shape[-1])
         x_grid, y_grid = torch.meshgrid(x_range,y_range)
         grid = torch.cat([x_grid.unsqueeze(0), y_grid.unsqueeze(0)],dim = 0).unsqueeze(0).repeat(batch_size,1,1,1)
-        return grid.to(input.device)
+        data_grid = torch.cat([input,grid], dim = 1)
+        return data_grid.to(input.device)
