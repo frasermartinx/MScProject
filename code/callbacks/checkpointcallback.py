@@ -7,7 +7,7 @@ class CheckpointCallback:
         self.save_freq = save_freq
         self.epoch_counter = 0
 
-    def __call__(self, model):
+    def __call__(self, model,train_loss, test_loss):
         self.epoch_counter += 1
         if self.epoch_counter % self.save_freq == 0:
             checkpoint_path = os.path.join(self.save_dir, f"model_epoch_{self.epoch_counter}.pt")
