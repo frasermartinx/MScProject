@@ -10,6 +10,6 @@ class CheckpointCallback:
     def __call__(self, model,train_loss, test_loss):
         self.epoch_counter += 1
         if self.epoch_counter % self.save_freq == 0:
-            checkpoint_path = os.path.join(self.save_dir, f"model_epoch_{self.epoch_counter}.pt")
+            checkpoint_path = os.path.join(self.save_dir, f"model_state.pt")
             torch.save(model.state_dict(), checkpoint_path)
             print(f"Model saved at epoch {self.epoch_counter}.")
