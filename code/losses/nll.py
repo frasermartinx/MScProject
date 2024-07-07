@@ -11,5 +11,4 @@ def NLL(mean, log_var, targets):
     nll_var = 0.5 * torch.log(var)
     nll = nll_var + nll_data
     return nll.mean()
-
-def 
+ 
