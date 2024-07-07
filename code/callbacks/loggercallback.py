@@ -7,6 +7,9 @@ class LoggerCallback:
         self.train_loss = []
         self.test_loss = []
         self.save_dir = os.path.join(save_dir, f"loss.csv")
+        # Create the directory if it does not exist
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
         # Initialize the CSV file with headers
         with open(self.save_dir, mode='w', newline='') as file:
             writer = csv.writer(file)
