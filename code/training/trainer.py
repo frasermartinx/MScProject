@@ -59,7 +59,7 @@ class Trainer:
                 for callback in self.callbacks:
                     callback(self.model)
             if epoch % self.log_test_interval == 0:
-                self.test(test_loaders, eval_losses)
+                self.evaluate(test_loaders, eval_losses)
             if scheduler is not None:
                 scheduler.step()
         
