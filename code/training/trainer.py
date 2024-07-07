@@ -61,7 +61,7 @@ class Trainer:
                 test_err = self.evaluate(test_loaders, eval_losses)
             if self.callbacks is not None:
                 for callback in self.callbacks:
-                    callback(self.model,train_err,test_err)
+                    callback(self.model,train_loss = train_err,test_loss = test_err, epoch = epoch)
             if scheduler is not None:
                 scheduler.step()
         
