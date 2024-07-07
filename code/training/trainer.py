@@ -35,6 +35,7 @@ class Trainer:
               ):
         for epoch in range(self.n_epochs):
             self.model.train()
+            train_err = 0.0
             for batch_idx, (data, target) in enumerate(train_loader):
                 data, target = data.to(self.device), target.to(self.device)
                 optimizer.zero_grad()
@@ -44,22 +45,23 @@ class Trainer:
                     loss = regularizer(loss, self.model)
                 loss.backward()
                 optimizer.step()
-                if batch_idx % self.log_test_interval == 0:
-                    if self.verbose:
-                        print(
-                            "Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}".format(
-                                epoch,
-                                batch_idx * len(data),
-                                len(train_loader.dataset),
-                                100.0 * batch_idx / len(train_loader),
-                                loss.item(),
-                            )
+                train_err += loss.item()
+            
+            
+            train_err /= len(train_loader)
+            if epoch % self.log_test_interval == 0:
+                if self.verbose:
+                    print(
+                        "Train Epoch: {} \tLoss: {:.6f}".format(
+                            epoch,
+                            train_err,
                         )
+                    )
+            if epoch % self.log_test_interval == 0:
+                test_err = self.evaluate(test_loaders, eval_losses)
             if self.callbacks is not None:
                 for callback in self.callbacks:
-                    callback(self.model)
-            if epoch % self.log_test_interval == 0:
-                self.evaluate(test_loaders, eval_losses)
+                    callback(self.model,train_err,test_err)
             if scheduler is not None:
                 scheduler.step()
         
@@ -71,7 +73,7 @@ class Trainer:
                 data, target = data.to(self.device), target.to(self.device)
                 output = self.model(data)
                 test_loss += eval_losses(*output, target).item()
-        test_loss /= len(test_loader.dataset)
+        test_loss /= len(test_loader)
         if self.verbose:
             print("\nTest set: Average loss: {:.4f}".format(test_loss))
         return test_loss
