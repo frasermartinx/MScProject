@@ -4,8 +4,6 @@ import os
 
 class LoggerCallback:
     def __init__(self,save_dir):
-        self.train_loss = []
-        self.test_loss = []
         self.save_dir = os.path.join(save_dir, f"loss.csv")
         # Create the directory if it does not exist
         if not os.path.exists(save_dir):
@@ -16,8 +14,6 @@ class LoggerCallback:
             writer.writerow(['Epoch', 'Train Loss', 'Test Loss'])
 
     def __call__(self, model,train_loss, test_loss,epoch):
-        self.train_loss.append(train_loss)
-        self.test_loss.append(test_loss)
         # Append the new losses to the CSV file
         with open(self.save_dir, mode='a', newline='') as file:
             writer = csv.writer(file)
