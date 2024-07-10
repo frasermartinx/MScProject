@@ -22,8 +22,9 @@ class Trainer:
         self.log_test_interval = log_test_interval
         self.log_output = log_output
         self.verbose = verbose
+
+
         
-    
     def train(self,
               train_loader,
               test_loaders,
@@ -75,7 +76,7 @@ class Trainer:
                 test_loss += eval_losses(*output, target).item()
         test_loss /= len(test_loader)
         if self.verbose:
-            print("\nTest set: Average loss: {:.4f}".format(test_loss))
+            print("Test set: Average loss: {:.4f}\n".format(test_loss))
         return test_loss
             
     
