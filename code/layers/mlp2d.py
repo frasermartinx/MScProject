@@ -52,7 +52,8 @@ class MLP2D(nn.Module):
         for i, fc in enumerate(self.fcs):
             x = fc(x)
             if i < self.n_layers - 1:
-                x = self.non_linearity(x)
+                if self.non_linearity is not None:
+                    x = self.non_linearity(x)
             if self.dropout is not None:
                 x = self.dropout[i](x)
 
