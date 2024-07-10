@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from layers.mlp2d import MLP2D
 from layers.fnoblock import FNOBlock2D
+from layers.densenet import DenseNet
 
 class FNO2D_Bayesian(nn.Module):
     def __init__(
@@ -40,14 +41,16 @@ class FNO2D_Bayesian(nn.Module):
             out_channels=self.out_ch,
             hidden_channels=self.projection_channels,
             n_layers = 2,
-            non_linearity=non_linearity)
+            non_linearity=self.non_linearity)
         
-        self.q_cov = MLP2D(
+        self.q_var= MLP2D(
             in_channels=self.hidden_channels,
             out_channels=self.out_ch,
             hidden_channels=self.projection_channels,
             n_layers = 2,
-            non_linearity=non_linearity)
+            non_linearity=self.non_linearity)
+        
+
 
         
         #fourier blocks
@@ -56,7 +59,7 @@ class FNO2D_Bayesian(nn.Module):
                 n_modes = self.n_modes,
                 in_ch = self.hidden_channels,
                 out_ch=self.hidden_channels,
-                non_linearity=non_linearity
+                non_linearity=self.non_linearity
                 ) for _ in range(self.n_layers)
         ])
 
@@ -68,8 +71,8 @@ class FNO2D_Bayesian(nn.Module):
         for i in range(self.n_layers):
             x = self.fcs[i](x)
         mu = self.q_mean(x)
-        cov = self.q_cov(x)
-        return mu, cov
+        sd = self.q_var(x)
+
+        return mu, sd
 
             
-
