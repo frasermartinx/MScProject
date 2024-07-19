@@ -46,12 +46,11 @@ class FNO2D_Bayesian(nn.Module):
         self.q_var= MLP2D(
             in_channels=self.hidden_channels,
             out_channels=self.out_ch,
-            hidden_channels=self.projection_channels,
+            hidden_channels=self.projection_channels*2,
             n_layers = 2,
             non_linearity=self.non_linearity)
         
-
-
+        
         
         #fourier blocks
         self.fcs = nn.ModuleList([
@@ -71,8 +70,7 @@ class FNO2D_Bayesian(nn.Module):
         for i in range(self.n_layers):
             x = self.fcs[i](x)
         mu = self.q_mean(x)
-        sd = self.q_var(x)
-
-        return mu, sd
+        var = self.q_var(x)
+        return mu, var
 
             
