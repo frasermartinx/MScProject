@@ -43,7 +43,7 @@ class Trainer_Ensemble:
                     data, target = data.to(self.device), target.to(self.device)
                     optimizer_list[i].zero_grad()
                     output = model(data)
-                    loss = training_loss(*output, target)
+                    loss = training_loss(output, target)
                     if regularizer is not None:
                         loss = regularizer(loss, model)
                     loss.backward()
@@ -76,7 +76,7 @@ class Trainer_Ensemble:
             for data, target in test_loader:
                 data, target = data.to(self.device), target.to(self.device)
                 output = model(data)
-                test_loss += eval_losses(*output, target).item()
+                test_loss += eval_losses(output, target).item()
         test_loss /= len(test_loader)
         if self.verbose:
             print("Test set: Average loss: {:.4f}\n".format(test_loss))

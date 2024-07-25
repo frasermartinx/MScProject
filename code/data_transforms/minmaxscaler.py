@@ -8,8 +8,8 @@ class MinMaxScaler:
 
     def fit(self, data):
         # Compute min and max for each channel
-        self.min = torch.min(data,dim=0, keepdim=True)[0]
-        self.max = torch.max(data,dim=0, keepdim=True)[0]
+        self.min = torch.min(data.flatten())
+        self.max = torch.max(data.flatten())
 
     def transform(self, data):
         return (data - self.min) / (self.max - self.min + self.eps)
