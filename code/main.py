@@ -65,4 +65,4 @@ nonlin = function_symbol("c_u",w)
 nonlin = 0 * w
 
 if __name__ == '__main__':
-    DataGenerator(data_points=10000,grid_size=32,nonlinear_term=nonlin,x_save_path="./dirichlet_100000_32_x.pt",y_save_path="./dirichlet_100000_32_y.pt").generate()
+    DataGenerator(data_points=100,grid_size=32,nonlinear_term=nonlin,x_save_path="./dirichlet_100_32_x.pt",y_save_path="./dirichlet_100_32_y.pt").generate()
