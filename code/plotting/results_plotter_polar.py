@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plotter(input,prediction,solution,r_range,theta_range,idx = False):
+def plotter(input,prediction,solution,r_range,theta_range):
 
     R,Theta = np.meshgrid(r_range, theta_range)
 
@@ -24,12 +24,6 @@ def plotter(input,prediction,solution,r_range,theta_range,idx = False):
     axs[1].set_title("Model Prediction")
     axs[1].set_xlabel("x")
     axs[1].set_ylabel("y")
-
-    if idx:
-        R,Theta = np.meshgrid(r_range, theta_range, indexing = "ij")
-
-        X = R * np.cos(Theta)
-        Y = R * np.sin(Theta)
 
     #actual
     fig2 = axs[2].pcolormesh(X,Y,solution.cpu())

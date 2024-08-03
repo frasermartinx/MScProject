@@ -2,12 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plotter_3D(input,prediction,solution,r_range,theta_range):
+def plotter_3D(input,prediction,solution,X,Y):
 
-    R,Theta = np.meshgrid(r_range, theta_range)
+    R,Theta = np.meshgrid(X, Y)
 
-    X = R * np.cos(Theta)
-    Y = R * np.sin(Theta)
     fig, axs = plt.subplots(1, 3, figsize=(14, 6))
 
     ax = fig.add_subplot(131, projection='3d')
@@ -23,7 +21,6 @@ def plotter_3D(input,prediction,solution,r_range,theta_range):
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.set_zlabel("u")
-
 
     ax = fig.add_subplot(133, projection='3d')
     ax.plot_surface(X, Y, solution, cmap='viridis')

@@ -13,7 +13,7 @@ def plotter(input,prediction,solution,X,Y):
     axs[0].set_ylabel("y")
 
     #prediction
-    fig1 = axs[1].pcolormesh(X,Y,prediction[0,0,:,:].cpu().detach().numpy())
+    fig1 = axs[1].pcolormesh(X,Y,prediction.cpu().detach().numpy())
     fig.colorbar(fig1)
     axs[1].set_title("Model Prediction")
     axs[1].set_xlabel("x")
